@@ -56,7 +56,7 @@ export default function SignInPage() {
         toast.success("Login successful!");
         router.replace("/dashboard");
       }
-    } catch (error) { 
+    } catch {
       toast.error("Something went wrong.");
     } finally {
       setIsSubmitting(false);
@@ -152,7 +152,7 @@ export default function SignInPage() {
                         className="w-4 h-4 transition-transform duration-300 group-hover:scale-125"
                       >
                         <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                      </svg> 
+                      </svg>
                       Sign In
                       <svg
                         viewBox="0 0 24 24"
@@ -171,7 +171,7 @@ export default function SignInPage() {
           </Form>
 
           <p className="text-center text-sm text-gray-300 mt-6">
-            Not a member?{' '}
+            Not a member?{" "}
             <Link href="/sign-up" className="text-cyan-400 hover:text-cyan-300 font-semibold">
               Join Now
             </Link>
