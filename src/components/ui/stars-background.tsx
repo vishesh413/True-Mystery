@@ -5,7 +5,6 @@ import React, {
   useState,
   useEffect,
   useRef,
-  RefObject,
   useCallback,
 } from "react";
 
@@ -35,7 +34,7 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
   className,
 }) => {
   const [stars, setStars] = useState<StarProps[]>([]);
-  const canvasRef: RefObject<HTMLCanvasElement> = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null); // ✅ Fixed typing
 
   const generateStars = useCallback(
     (width: number, height: number): StarProps[] => {
@@ -67,8 +66,8 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
 
   useEffect(() => {
     const updateStars = () => {
-      if (canvasRef.current) {
-        const canvas = canvasRef.current;
+      const canvas = canvasRef.current;
+      if (canvas) {
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
@@ -92,12 +91,12 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
       }
     };
   }, [
+    generateStars,
     starDensity,
     allStarsTwinkle,
     twinkleProbability,
     minTwinkleSpeed,
     maxTwinkleSpeed,
-    generateStars,
   ]);
 
   useEffect(() => {
