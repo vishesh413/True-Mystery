@@ -164,7 +164,7 @@ export default function Home() {
           viewport={{ once: true }}
           className="mt-16 mb-4 px-6 max-w-2xl text-center text-gray-400 text-sm italic z-10 mx-auto"
         >
-          <p>"Sometimes the quietest voices carry the deepest truths."</p>
+          <p>Sometimes the quietest voices carry the deepest truths.</p>
         </motion.div>
       </main>
 

@@ -40,7 +40,7 @@ export default function MessageCard({
         `/api/delete-message/${message._id}`
       );
       toast.success(response.data.message);
-      onMessageDelete(message._id as string);
+      onMessageDelete(message._id);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.error('Error', {
@@ -83,7 +83,6 @@ export default function MessageCard({
             </AlertDialogHeader>
 
             <AlertDialogFooter className="flex gap-4 mt-6">
-              {/* Cancel Button - stays cyan */}
               <AlertDialogCancel
                 className="group relative px-6 py-3 rounded-md bg-black text-cyan-400 font-bold uppercase text-xs border border-cyan-500/50 
                   hover:border-cyan-300 hover:text-cyan-200
@@ -97,7 +96,6 @@ export default function MessageCard({
                 <div className="absolute -inset-1 -z-10 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-20 group-hover:opacity-30 blur-xl rounded-md transition-all duration-300 group-hover:blur-2xl" />
               </AlertDialogCancel>
 
-              {/* DELETE Button - red only */}
               <AlertDialogAction
                 onClick={handleDeleteConfirm}
                 className="group relative px-6 py-3 rounded-md bg-black text-red-400 font-bold uppercase text-xs border border-red-500/50 

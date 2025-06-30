@@ -1,54 +1,76 @@
-import dbConnect from "@/lib/dbConnect";
-import UserModel from "@/model/User";
+import { NextResponse } from 'next/server';
+import dbConnect from '@/lib/dbConnect';
+import UserModel from '@/model/User';
+
+interface MessageRequestBody {
+  username: string;
+  content: string;
+}
 
 export async function POST(request: Request) {
   await dbConnect();
 
-  const { username, content } = await request.json();
+  let body: MessageRequestBody;
+
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      {
+        success: false,
+        message: 'Invalid JSON body',
+      },
+      { status: 400 }
+    );
+  }
+
+  const { username, content } = body;
 
   try {
     const user = await UserModel.findOne({ username });
 
     if (!user) {
-      return Response.json(
+      return NextResponse.json(
         {
           success: false,
-          message: "User not found",
+          message: 'User not found',
         },
         { status: 404 }
       );
     }
 
     if (!user.isAcceptingMessages) {
-      return Response.json(
+      return NextResponse.json(
         {
           success: false,
-          message: "User is not accepting the messages",
+          message: 'User is not accepting messages',
         },
         { status: 403 }
       );
     }
 
-    const newMessage = {
+    //  Push directly with schema validation — no need to cast type
+    user.messages.push({
       content,
       createdAt: new Date(),
-    };
+    });
 
-    user.messages.push(newMessage);
     await user.save();
 
-    return Response.json(
+    return NextResponse.json(
       {
         success: true,
-        message: "Message sent successfully",
+        message: 'Message sent successfully',
       },
       { status: 200 }
     );
   } catch (error: unknown) {
-    return Response.json(
+    console.error('Send Message Error:', error);
+
+    return NextResponse.json(
       {
         success: false,
-        message: "Internal server error",
+        message: 'Internal server error',
       },
       { status: 500 }
     );
