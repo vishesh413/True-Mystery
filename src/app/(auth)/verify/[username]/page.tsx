@@ -8,7 +8,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
 import { ApiResponse } from '@/types/ApiResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
@@ -18,11 +17,11 @@ import * as z from 'zod';
 import { verifySchema } from '@/schemas/verifySchema';
 import { StarsBackground } from '@/components/ui/stars-background';
 import { ShootingStars } from '@/components/ui/shooting-stars';
+import { toast } from 'sonner'; // 🔥 Sonner import
 
 export default function VerifyAccount() {
   const router = useRouter();
   const params = useParams<{ username: string }>();
-  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof verifySchema>>({
     resolver: zodResolver(verifySchema),
@@ -35,20 +34,14 @@ export default function VerifyAccount() {
         code: data.code,
       });
 
-      toast({
-        title: 'Success',
-        description: response.data.message,
-      });
+      toast.success(response.data.message); // ✅ Sonner toast success
 
       router.replace('/sign-in');
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast({
-        title: 'Verification Failed',
-        description:
-          axiosError.response?.data.message ?? 'An error occurred. Please try again.',
-        variant: 'destructive',
-      });
+      toast.error(
+        axiosError.response?.data.message ?? 'An error occurred. Please try again.'
+      ); // ✅ Sonner toast error
     }
   };
 
