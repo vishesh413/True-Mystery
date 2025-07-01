@@ -144,7 +144,7 @@ export default function Home() {
               👤 Built For Everyone
             </h2>
             <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
-              Whether you're a curious soul, a bold messenger, or a creative mind looking for raw truth — this space is yours to explore.
+              Whether you re a curious soul, a bold messenger, or a creative mind looking for raw truth — this space is yours to explore.
             </p>
           </motion.div>
 
@@ -208,7 +208,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-br from-cyan-200 via-purple-300 to-pink-300 bg-clip-text">
+            <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-br from-cyan-200  from-cyan-300 via-sky-300 to-teal-200 bg-clip-text">
               ✨ Anonymous Truths
             </h2>
             <motion.div
