@@ -81,7 +81,7 @@ export const authOptions: NextAuthOptions = {
           id: user._id,
           email: user.email,
           name: user.username,
-          image: user.image ?? undefined, // ✅ FIXED HERE
+          image: user.image ?? undefined, //  FIXED HERE
           isVerified: user.isVerified,
           isAcceptingMessages: user.isAcceptingMessages,
           username: user.username,

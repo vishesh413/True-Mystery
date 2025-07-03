@@ -5,6 +5,7 @@ import { Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import Autoplay from "embla-carousel-autoplay";
 import messages from "@/messages.json";
+import { Lock, Rocket, Gift } from "lucide-react";
 
 import {
   Card,
@@ -44,9 +45,9 @@ export default function Home() {
   ];
 
   const anonymousSubtitles = [
-    "hidden voices",
-    "deep reflections",
-    "nameless wisdom",
+    "Hidden voices",
+    "Deep reflections",
+    "Nameless wisdom",
   ];
 
   return (
@@ -86,12 +87,16 @@ export default function Home() {
             className="mt-8"
           >
             <Link href="/sign-up">
-              <button className="relative inline-flex items-center justify-center px-8 py-3 text-sm font-semibold text-black bg-gradient-to-r from-cyan-300 to-teal-400 rounded-full shadow-lg hover:scale-105 hover:shadow-cyan-400/40 transition-all duration-300 overflow-hidden">
-                <span className="z-10">Get Started</span>
-                <span className="absolute inset-0 bg-white/10 blur-lg opacity-20" />
-                <span className="absolute -inset-1 rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 opacity-30 blur-xl z-0" />
-              </button>
-            </Link>
+                  <button
+                  className="relative inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold text-white shadow-lg active:scale-[0.97] transition-all"
+                  style={{
+                    background: "linear-gradient(to right, #3ABEFF, #A14FFF)",
+                  }}
+                >
+                  <span className="relative z-10">Get Started</span>
+                  <span className="absolute inset-0 rounded-full bg-white/10 blur-md opacity-10 pointer-events-none" />
+                </button>
+                </Link>
           </motion.div>
 
           {/* Carousel */}
@@ -106,7 +111,7 @@ export default function Home() {
                       transition={{ duration: 0.5, ease: "easeInOut" }}
                       viewport={{ once: true }}
                     >
-                      <Card className="bg-white/10 border border-white/10 backdrop-blur-lg rounded-2xl shadow-[0_0_20px_rgba(0,255,255,0.05)] hover:shadow-[0_0_30px_rgba(0,255,255,0.15)] transition duration-300">
+                      <Card className="bg-white/5 border border-white/5 backdrop-blur-lg rounded-2xl shadow-[0_0_20px_rgba(0,255,255,0.05)] hover:shadow-[0_0_30px_rgba(0,255,255,0.15)] transition duration-300">
                         <CardHeader className="text-left">
                           <CardTitle className="text-lg font-semibold text-white">
                             {message.title}
@@ -140,11 +145,12 @@ export default function Home() {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-br from-purple-400 to-pink-400 bg-clip-text mb-4">
-              👤 Built For Everyone
+            <h2 className="text-7xl md:text-4xl font-bold text-fuchsia-400 flex items-center justify-center gap-2 mb-3">
+              <span className="text-5xl">👤</span>
+              Built For Everyone
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto text-base md:text-lg">
-              Whether you re a curious soul, a bold messenger, or a creative mind looking for raw truth — this space is yours to explore.
+            <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg text-center">
+              Whether you’re a curious soul, a bold messenger, or a creative mind looking for raw truth — this space is yours to explore.
             </p>
           </motion.div>
 
@@ -155,10 +161,11 @@ export default function Home() {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              🌌 Real Thoughts. No Filters.
+            <h2 className="text-7xl md:text-4xl font-extrabold text-white flex items-center justify-center gap-3 mb-3">
+              <span className="text-5xl text-cyan-300">🌌</span>
+              Real Thoughts. No Filters.
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
+            <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg text-center">
               Speak or receive what truly matters. Mystery Message lets you connect without bias, ego, or identity — just pure expression in its most honest form.
             </p>
           </motion.div>
@@ -168,17 +175,20 @@ export default function Home() {
               {
                 title: "No Identity Needed",
                 description: "Let your words speak for themselves. No names, no judgments.",
-                icon: "👻",
+                icon: <Lock className="w-8 h-8 text-purple-300" />,
+                hoverColor: "group-hover:text-purple-300"
               },
               {
                 title: "Lightning Fast",
                 description: "Generate a link and start connecting — instantly and securely.",
-                icon: "🚀",
+                icon: <Rocket className="w-8 h-8 text-pink-400" />,
+                hoverColor: "group-hover:text-pink-400"
               },
               {
                 title: "Free Forever",
                 description: "Access all features without cost. Just focus on truth and connection.",
-                icon: "🎁",
+                icon: <Gift className="w-8 h-8 text-emerald-300" />,
+                hoverColor: "group-hover:text-emerald-300"
               },
             ].map((item, i) => (
               <motion.div
@@ -187,10 +197,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.2 }}
                 viewport={{ once: true }}
-                className="border text-cyan-300 border-cyan-400/30 bg-white/5 backdrop-blur-lg rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,255,0.1)] hover:shadow-[0_0_30px_rgba(0,255,255,0.2)] transition-all duration-300"
+                className="group border border-cyan-400/30 bg-white/5 backdrop-blur-lg rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,255,0.1)] hover:shadow-[0_0_30px_rgba(0,255,255,0.2)] transition-all duration-300 text-center flex flex-col items-center"
               >
-                <div className="text-3xl mb-2">{item.icon}</div>
-                <h3 className="text-lg font-semibold mb-2 text-cyan-300">
+                <div className="mb-4">{item.icon}</div>
+                <h3 className={`text-lg font-semibold mb-2 text-white transition-colors duration-300 ${item.hoverColor}`}>
                   {item.title}
                 </h3>
                 <p className="text-gray-300 text-sm">{item.description}</p>
@@ -200,16 +210,16 @@ export default function Home() {
         </section>
 
         {/* Anonymous Truths Section */}
-        <section className="relative w-full max-w-4xl mx-auto mt-28 px-4 z-10">
+        <section className="relative w-full max-w-5xl mx-auto mt-28 px-4 z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-br from-cyan-200  from-cyan-300 via-sky-300 to-teal-200 bg-clip-text">
-              ✨ Anonymous Truths
+            <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-br from-cyan-200 via-sky-300 to-teal-200 bg-clip-text">
+              <span className="text-cyan-300">✨</span> Anonymous Truths
             </h2>
             <motion.div
               initial={{ scaleX: 0 }}
@@ -222,31 +232,20 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0">
             {mysteryFacts.map((fact, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8, rotateX: -90 }}
-                whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                  ease: "easeOut",
-                }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="group relative p-6 rounded-xl border border-cyan-400/20 bg-white/5 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,255,0.05)] hover:shadow-[0_0_40px_rgba(0,255,255,0.2)] hover:scale-105 transition duration-300 overflow-hidden"
+                className="border text-cyan-300 border-cyan-400/30 bg-white/5 backdrop-blur-lg rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,255,0.1)] hover:shadow-[0_0_30px_rgba(0,255,255,0.2)] transition-all duration-300"
               >
-                <div className="absolute top-1 left-1 w-2 h-2 bg-cyan-400 rounded-full blur-sm" />
-                <div className="absolute bottom-1 right-1 w-2 h-2 bg-teal-300 rounded-full blur-sm" />
-                <div className="absolute text-5xl opacity-10 blur-sm top-4 right-6 animate-bounce-slow select-none pointer-events-none">
-                  🕵️‍♀️
-                </div>
-                <h3 className="text-cyan-200 font-mono text-xs uppercase tracking-wide mb-2">
+                <h3 className="text-lg font-semibold mb-2 text-cyan-300">
                   {anonymousSubtitles[index]}
                 </h3>
-                <p className="text-white text-base leading-relaxed relative z-10">
-                  “{fact}”
-                </p>
+                <p className="text-gray-300 text-sm">“{fact}”</p>
               </motion.div>
             ))}
           </div>
