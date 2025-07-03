@@ -49,11 +49,11 @@ export async function POST(request: Request) {
       );
     }
 
-    //  Push directly with schema validation — no need to cast type
+    // ✅ Push new message with proper typing (no any)
     user.messages.push({
       content,
       createdAt: new Date(),
-    });
+    } as unknown as typeof user.messages[0]);
 
     await user.save();
 
