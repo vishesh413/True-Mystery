@@ -1,26 +1,14 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-// ✅ Message Type — not extending Document (since it's a subdocument, not full model)
-export interface Message {
-    _id: string;  
+// 🔹 Message Interface
+export interface Message extends Document {
+  _id: mongoose.Types.ObjectId; // ✅ Important for deletion
   content: string;
   createdAt: Date;
 }
 
-// ✅ User Interface — extending Document
-export interface User extends Document {
-  username: string;
-  email: string;
-  password: string;
-  verifyCode: string;
-  verifyCodeExpiry: Date;
-  isVerified: boolean;
-  isAcceptingMessages: boolean;
-  messages: Message[];
-}
-
-// ✅ Message Schema — for subdocument (not full model)
-const MessageSchema = new Schema<Message>(
+// 🔹 Message Schema with _id explicitly enabled
+const MessageSchema: Schema<Message> = new mongoose.Schema(
   {
     content: {
       type: String,
@@ -32,11 +20,23 @@ const MessageSchema = new Schema<Message>(
       default: Date.now,
     },
   },
-  { _id: false } // optional: don’t generate _id for each message
+  { _id: true } // ✅ Ensure each message gets an ObjectId
 );
 
-// ✅ User Schema
-const UserSchema = new Schema<User>({
+// 🔹 User Interface
+export interface User extends Document {
+  username: string;
+  email: string;
+  password: string;
+  verifyCode: string;
+  verifyCodeExpiry: Date;
+  isVerified: boolean;
+  isAcceptingMessages: boolean;
+  messages: Message[];
+}
+
+// 🔹 User Schema
+const UserSchema: Schema<User> = new mongoose.Schema({
   username: {
     type: String,
     required: [true, 'Username is required'],
@@ -55,11 +55,11 @@ const UserSchema = new Schema<User>({
   },
   verifyCode: {
     type: String,
-    required: [true, 'Verify code is required'],
+    required: [true, 'Verify Code is required'],
   },
   verifyCodeExpiry: {
     type: Date,
-    required: [true, 'Verify code expiry is required'],
+    required: [true, 'Verify Code Expiry is required'],
   },
   isVerified: {
     type: Boolean,
@@ -69,14 +69,12 @@ const UserSchema = new Schema<User>({
     type: Boolean,
     default: true,
   },
-  messages: {
-    type: [MessageSchema],
-    default: [],
-  },
+  messages: [MessageSchema], // ✅ Embedded schema with ObjectId
 });
 
-// ✅ Safe model export — Next.js compatible (avoid re-definition on hot reload)
+// 🔹 Export Model (with hot-reload fix)
 const UserModel =
-  mongoose.models.User || mongoose.model<User>('User', UserSchema);
+  (mongoose.models.User as mongoose.Model<User>) ||
+  mongoose.model<User>('User', UserSchema);
 
 export default UserModel;

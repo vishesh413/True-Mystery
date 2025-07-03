@@ -1,40 +1,28 @@
-import { NextAuthOptions, Session } from 'next-auth';
+import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import dbConnect from '@/lib/dbConnect';
 import UserModel from '@/model/User';
-import { JWT } from 'next-auth/jwt';
+import { Document } from 'mongoose';
+import { User as NextAuthUser } from 'next-auth';
 
-// ✅ Extended JWT token type
-interface ExtendedToken extends JWT {
-  _id?: string;
-  isVerified?: boolean;
-  isAcceptingMessages?: boolean;
-  username?: string;
-}
-
-// ✅ Extended session type
-interface ExtendedSession extends Session {
-  user: {
-    _id: string;
-    email: string;
-    name?: string;
-    image?: string;
-    isVerified?: boolean;
-    isAcceptingMessages?: boolean;
-    username?: string;
-  };
-}
-
-// ✅ User returned by authorize
-interface ExtendedUser {
-  id: string;
+interface UserDoc extends Document {
+  _id: string;
   email: string;
-  name: string;
-  image?: string;
+  username: string;
+  password: string;
   isVerified: boolean;
   isAcceptingMessages: boolean;
+}
+
+// 👇 We now include _id in AuthorizedUser because your app expects it
+interface AuthorizedUser extends NextAuthUser {
+  id: string;
+  _id: string;
+  email: string;
   username: string;
+  isVerified: boolean;
+  isAcceptingMessages: boolean;
 }
 
 export const authOptions: NextAuthOptions = {
@@ -46,8 +34,8 @@ export const authOptions: NextAuthOptions = {
         identifier: { label: 'Email or Username', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials): Promise<ExtendedUser | null> {
-        if (!credentials?.identifier || !credentials?.password) return null;
+      async authorize(credentials): Promise<AuthorizedUser | null> {
+        if (!credentials?.identifier || !credentials.password) return null;
 
         await dbConnect();
 
@@ -56,10 +44,10 @@ export const authOptions: NextAuthOptions = {
             { email: credentials.identifier },
             { username: credentials.identifier },
           ],
-        });
+        }) as UserDoc | null;
 
-        if (!userDoc) throw new Error('No user found with this email');
-        if (!userDoc.isVerified) throw new Error('Please verify your account');
+        if (!userDoc) throw new Error('No user found with this email or username');
+        if (!userDoc.isVerified) throw new Error('Please verify your account before logging in');
 
         const isPasswordCorrect = await bcrypt.compare(
           credentials.password,
@@ -68,23 +56,13 @@ export const authOptions: NextAuthOptions = {
 
         if (!isPasswordCorrect) throw new Error('Incorrect password');
 
-        const user = userDoc.toObject() as {
-          _id: string;
-          email: string;
-          username: string;
-          image?: string;
-          isVerified: boolean;
-          isAcceptingMessages: boolean;
-        };
-
         return {
-          id: user._id,
-          email: user.email,
-          name: user.username,
-          image: user.image ?? undefined, //  FIXED HERE
-          isVerified: user.isVerified,
-          isAcceptingMessages: user.isAcceptingMessages,
-          username: user.username,
+          id: userDoc._id.toString(),
+          _id: userDoc._id.toString(), // ✅ Fix added here
+          email: userDoc.email,
+          username: userDoc.username,
+          isVerified: userDoc.isVerified,
+          isAcceptingMessages: userDoc.isAcceptingMessages,
         };
       },
     }),
@@ -92,39 +70,37 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user }) {
-      const extendedToken: ExtendedToken = token;
-
       if (user) {
-        const u = user as ExtendedUser;
-        extendedToken._id = u.id;
-        extendedToken.username = u.username;
-        extendedToken.isVerified = u.isVerified;
-        extendedToken.isAcceptingMessages = u.isAcceptingMessages;
+        return {
+          ...token,
+          _id: (user as AuthorizedUser)._id,
+          email: user.email,
+          username: user.username,
+          isVerified: user.isVerified,
+          isAcceptingMessages: user.isAcceptingMessages,
+        };
       }
-
-      return extendedToken;
+      return token;
     },
 
     async session({ session, token }) {
-      const extendedSession = session as ExtendedSession;
-      const extendedToken = token as ExtendedToken;
-
-      if (extendedSession.user && extendedToken._id) {
-        extendedSession.user._id = extendedToken._id;
-        extendedSession.user.username = extendedToken.username ?? '';
-        extendedSession.user.isVerified = extendedToken.isVerified ?? false;
-        extendedSession.user.isAcceptingMessages =
-          extendedToken.isAcceptingMessages ?? true;
+      if (session.user) {
+        session.user._id = token._id as string;
+        session.user.email = token.email as string;
+        session.user.username = token.username as string;
+        session.user.isVerified = token.isVerified as boolean;
+        session.user.isAcceptingMessages = token.isAcceptingMessages as boolean;
       }
-
-      return extendedSession;
+      return session;
     },
   },
 
   session: {
     strategy: 'jwt',
   },
+
   secret: process.env.NEXTAUTH_SECRET,
+
   pages: {
     signIn: '/sign-in',
   },
