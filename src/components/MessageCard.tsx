@@ -36,11 +36,12 @@ export default function MessageCard({
 }: MessageCardProps) {
   const handleDeleteConfirm = async () => {
     try {
+      const messageId = message._id.toString(); // ✅ Convert ObjectId to string
       const response = await axios.delete<ApiResponse>(
-        `/api/delete-message/${message._id}`
+        `/api/delete-message/${messageId}`
       );
       toast.success(response.data.message);
-      onMessageDelete(message._id);
+      onMessageDelete(messageId);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.error('Error', {

@@ -91,7 +91,7 @@ export default function Dashboard() {
   };
 
   const handleDeleteMessage = (id: string) => {
-    setMessages((prev) => prev.filter((m) => m._id !== id));
+    setMessages((prev) => prev.filter((m) => m._id.toString() !== id));
   };
 
   if (!session?.user) return <div />;
@@ -128,8 +128,7 @@ export default function Dashboard() {
           <button
             onClick={() => {
               navigator.clipboard.writeText(profileUrl);
-              toast.success('Link copied to clipboard', {
-              });
+              toast.success('Link copied to clipboard');
             }}
             className="group relative px-6 py-3 rounded-md bg-black text-cyan-400 font-bold uppercase text-xs border border-cyan-500/50 hover:border-cyan-500 transition-all duration-300 ease-in-out hover:text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:shadow-[0_0_35px_rgba(34,211,238,0.45)] active:translate-y-1 active:shadow-[0_0_15px_rgba(34,211,238,0.45)] active:scale-[0.98]"
           >
@@ -180,12 +179,15 @@ export default function Dashboard() {
           {messages.length > 0 ? (
             messages.map((m, i) => (
               <motion.div
-                key={m._id as string}
+                key={m._id.toString()}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
               >
-                <MessageCard message={m} onMessageDelete={handleDeleteMessage} />
+                <MessageCard
+                  message={m}
+                  onMessageDelete={handleDeleteMessage}
+                />
               </motion.div>
             ))
           ) : (
