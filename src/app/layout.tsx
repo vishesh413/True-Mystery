@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'True Feedback',
   description: 'Real feedback from real people.',
-  viewport: 'width=1024', // ✅ yeh line add ki hai
+  viewport: 'width=1024',
 };
 
 interface RootLayoutProps {

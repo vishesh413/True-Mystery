@@ -78,3 +78,7 @@
   100% { top: 100%; left: -10%; opacity: 0; }
 }
 
+/* Add this to globals.css */
+.pt-navbar {
+  padding-top: 4.5rem; /* adjust if needed */
+}
