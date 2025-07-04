@@ -51,12 +51,12 @@ export default function Home() {
 
   return (
     <>
-      <main className="relative bg-black text-white min-h-screen overflow-hidden">
+      <main className="relative bg-black text-white min-h-screen overflow-hidden pt-16">
         <StarsBackground />
         <ShootingStars />
 
         {/* Hero Section */}
-        <section className="relative z-10 flex flex-col items-center justify-center min-h-[80vh] px-4 md:px-24 pt-20 text-center">
+        <section className="relative z-10 flex flex-col items-center justify-center min-h-[80vh] px-4 md:px-24 text-center pt-20">
           <motion.h1
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -136,19 +136,16 @@ export default function Home() {
         </section>
 
         {/* Info Section */}
-        <section className="relative z-10 mt-12 md:mt-24 max-w-5xl mx-auto px-4 text-center">
+        <section className="relative z-10 mt-12 md:mt-20 max-w-5xl mx-auto px-4 text-center space-y-20 md:space-y-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="mb-16"
+            className="space-y-4"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-fuchsia-400 flex items-center justify-center gap-2 mb-3">
-              <span className="text-2xl sm:text-3xl md:text-4xl">👤</span>
-              Built For Everyone
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-400">👤 Built For Everyone</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
               Whether you’re a curious soul, a bold messenger, or a creative mind looking for raw truth — this space is yours to explore.
             </p>
           </motion.div>
@@ -158,32 +155,29 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="mb-20"
+            className="space-y-4"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white flex items-center justify-center gap-3 mb-3">
-              <span className="text-2xl sm:text-3xl md:text-4xl text-cyan-300">🌌</span>
-              Real Thoughts. No Filters.
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">🌌 Real Thoughts. No Filters.</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
               Speak or receive what truly matters. Mystery Message lets you connect without bias, ego, or identity — just pure expression in its most honest form.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[{
               title: "No Identity Needed",
               description: "Let your words speak for themselves. No names, no judgments.",
-              icon: <Lock className="w-8 h-8 text-purple-300" />, 
+              icon: <Lock className="w-8 h-8 text-purple-300" />,
               hoverColor: "group-hover:text-purple-300",
             }, {
               title: "Lightning Fast",
               description: "Generate a link and start connecting — instantly and securely.",
-              icon: <Rocket className="w-8 h-8 text-pink-400" />, 
+              icon: <Rocket className="w-8 h-8 text-pink-400" />,
               hoverColor: "group-hover:text-pink-400",
             }, {
               title: "Free Forever",
               description: "Access all features without cost. Just focus on truth and connection.",
-              icon: <Gift className="w-8 h-8 text-emerald-300" />, 
+              icon: <Gift className="w-8 h-8 text-emerald-300" />,
               hoverColor: "group-hover:text-emerald-300",
             }].map((item, i) => (
               <motion.div
@@ -195,7 +189,9 @@ export default function Home() {
                 className="group border border-cyan-400/30 bg-white/5 backdrop-blur-lg rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,255,0.1)] hover:shadow-[0_0_30px_rgba(0,255,255,0.2)] transition-all duration-300 text-center flex flex-col items-center"
               >
                 <div className="mb-4">{item.icon}</div>
-                <h3 className={`text-lg font-semibold mb-2 text-white transition-colors duration-300 ${item.hoverColor}`}>{item.title}</h3>
+                <h3 className={`text-lg font-semibold mb-2 text-white transition-colors duration-300 ${item.hoverColor}`}>
+                  {item.title}
+                </h3>
                 <p className="text-gray-300 text-sm">{item.description}</p>
               </motion.div>
             ))}
@@ -225,7 +221,7 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {mysteryFacts.map((fact, index) => (
               <motion.div
                 key={index}

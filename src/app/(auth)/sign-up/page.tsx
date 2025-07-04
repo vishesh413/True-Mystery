@@ -95,9 +95,8 @@ export default function SignUpForm() {
       <ShootingStars />
 
       <div className="relative w-full max-w-md z-10 group">
-        <div className="absolute -inset-[2px] bg-cyan-300 rounded-[inherit] blur-md opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
-
-        <div className="relative px-8 py-10 bg-black/60 backdrop-blur-xl rounded-2xl border border-cyan-400 group-hover:shadow-[0_0_20px_3px_rgba(0,255,255,0.2)] transition duration-300">
+        {/* Removed glow blur hover div */}
+        <div className="relative px-8 py-10 bg-black/60 backdrop-blur-xl rounded-2xl border border-cyan-400 transition duration-300">
           <div className="text-center mb-6">
             <h1 className="text-4xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-purple-400 mb-2 animate-fade-in">
               Join MysteryVerse
@@ -173,30 +172,26 @@ export default function SignUpForm() {
 
               {/* Password */}
               <FormField
-  name="password"
-  control={form.control}
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel className="text-white">Password</FormLabel>
-      <FormControl>
-        <div className="relative">
-          {/* Left-side Lock icon */}
-          <Lock className="absolute left-3 top-3 h-5 w-5 text-cyan-400" />
-          
-          {/* Final password input without eye icon */}
-          <Input
-            {...field}
-            type="password"
-            placeholder="••••••••"
-            className="pl-10 pr-4 bg-white/10 border border-gray-600 text-white placeholder:text-white/60 rounded-xl focus:outline-none"
-          />
-        </div>
-      </FormControl>
-      <FormMessage className="text-red-300" />
-    </FormItem>
-  )}
-/>
-
+                name="password"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-white">Password</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 h-5 w-5 text-cyan-400" />
+                        <Input
+                          {...field}
+                          type="password"
+                          placeholder="••••••••"
+                          className="pl-10 pr-4 bg-white/10 border border-gray-600 text-white placeholder:text-white/60 rounded-xl focus:outline-none"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage className="text-red-300" />
+                  </FormItem>
+                )}
+              />
 
               {/* Submit Button */}
               <button

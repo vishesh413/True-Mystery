@@ -104,7 +104,7 @@ export default function Dashboard() {
   const profileUrl = `${baseUrl}/u/${username}`;
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col items-center py-12 px-6 bg-black text-white">
+    <div className="relative min-h-screen overflow-hidden flex flex-col items-center py-12 px-6 bg-black text-white pt-20">
       <StarsBackground />
       <ShootingStars />
 
@@ -114,7 +114,7 @@ export default function Dashboard() {
         transition={{ duration: 0.5 }}
         className="relative z-10 w-full max-w-5xl bg-black bg-opacity-70 rounded-2xl border border-cyan-500 shadow-[0_0_25px_3px_rgba(6,182,212,0.5)] p-10 backdrop-blur-md"
       >
-        <h1 className="text-5xl font-bold mb-12 font-serif drop-shadow-md select-none">
+        <h1 className="text-4xl font-bold mb-12 font-serif drop-shadow-md select-none">
           📋 User Dashboard
         </h1>
 

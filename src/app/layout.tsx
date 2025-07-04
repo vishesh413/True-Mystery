@@ -7,7 +7,7 @@ import { Toaster as Sonner } from 'sonner';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'True Feedback',
+  title: 'Mystry Message',
   description: 'Real feedback from real people.',
   viewport: 'width=1024',
 };
