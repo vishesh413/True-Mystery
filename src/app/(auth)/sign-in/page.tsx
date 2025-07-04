@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
-import { Eye, EyeOff, Loader2, Mail, Lock } from "lucide-react";
+import { Lock,Loader2, Mail } from "lucide-react";
 
 import { signInSchema } from "@/schemas/signinSchema";
 import {
@@ -25,7 +25,6 @@ import { ShootingStars } from "@/components/ui/shooting-stars";
 
 export default function SignInPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -98,7 +97,7 @@ export default function SignInPage() {
                         <Input
                           {...field}
                           placeholder="john@example.com"
-                          className="pl-10 pr-4 bg-white/10 border border-white/10 text-white placeholder:text-white/60 rounded-xl focus:ring-[0.5px]  focus:border-white"
+                          className="pl-10 pr-4 bg-white/10 border border-white/10 text-white placeholder:text-white/60 rounded-xl"
                         />
                       </div>
                     </FormControl>
@@ -108,33 +107,28 @@ export default function SignInPage() {
               />
 
               <FormField
-                name="password"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white">Password</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-3 h-5 w-5 text-cyan-400" />
-                        <Input
-                          {...field}
-                          type={showPassword ? "text" : "password"}
-                          placeholder="••••••••"
-                          className="pl-10 pr-10 bg-white/10 border border-white/10 text-white placeholder:text-white/60 rounded-xl focus:ring-[0.5px] focus:border-white"
-                        />
-                        <button
-                          type="button"
-                          className="absolute right-3 top-2.5 text-cyan-300 hover:text-white"
-                          onClick={() => setShowPassword((prev) => !prev)}
-                        >
-                          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                      </div>
-                    </FormControl>
-                    <FormMessage className="text-red-300" />
-                  </FormItem>
-                )}
-              />
+  name="password"
+  control={form.control}
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel className="text-white">Password</FormLabel>
+      <FormControl>
+        <div className="relative">
+          {/* Add left lock icon */}
+          <Lock className="absolute left-3 top-3 h-5 w-5 text-cyan-400" />
+          <Input
+            {...field}
+            type="password"
+            placeholder="••••••••"
+            className="pl-10 pr-4 bg-white/10 border border-white/10 text-white placeholder:text-white/60 rounded-xl"
+          />
+        </div>
+      </FormControl>
+      <FormMessage className="text-red-300" />
+    </FormItem>
+  )}
+/>
+
 
               <button
                 type="submit"

@@ -53,7 +53,7 @@ function Navbar() {
             hover:brightness-125 transition duration-300"
         >
           <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 animate-pulse drop-shadow-md" />
-          True Mystery
+          Mystery Message
         </Link>
 
         {session ? (

@@ -18,7 +18,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import axios, { AxiosError } from 'axios';
-import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
+import { Mail, Lock, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { signUpSchema } from '@/schemas/signUpSchema';
 import { StarsBackground } from '@/components/ui/stars-background';
@@ -29,7 +29,6 @@ export default function SignUpForm() {
   const [usernameMessage, setUsernameMessage] = useState('');
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const debounced = useDebounceCallback(setUsername, 300);
 
   const router = useRouter();
@@ -109,7 +108,11 @@ export default function SignUpForm() {
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 animate-fade-in delay-200">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-6 animate-fade-in delay-200"
+            >
+              {/* Username */}
               <FormField
                 name="username"
                 control={form.control}
@@ -126,12 +129,18 @@ export default function SignUpForm() {
                             field.onChange(e);
                             debounced(e.target.value);
                           }}
-                          className="pl-10 pr-4 bg-white/10 border border-white/10 text-white placeholder:text-white rounded-xl focus:ring-[0.5px] focus:border-white"
+                          className="pl-10 pr-4 bg-white/10 border border-gray-600 text-white placeholder:text-white rounded-xl focus:outline-none"
                         />
                       </div>
                     </FormControl>
                     {!isCheckingUsername && usernameMessage && (
-                      <p className={`text-sm ${usernameMessage === 'Username is unique' ? 'text-green-400' : 'text-red-400'}`}>
+                      <p
+                        className={`text-sm ${
+                          usernameMessage === 'Username is unique'
+                            ? 'text-green-400'
+                            : 'text-red-400'
+                        }`}
+                      >
                         {usernameMessage}
                       </p>
                     )}
@@ -140,6 +149,7 @@ export default function SignUpForm() {
                 )}
               />
 
+              {/* Email */}
               <FormField
                 name="email"
                 control={form.control}
@@ -152,7 +162,7 @@ export default function SignUpForm() {
                         <Input
                           {...field}
                           placeholder="john@example.com"
-                          className="pl-10 pr-4 bg-white/10 border border-white/10 text-white placeholder:text-white rounded-xl focus:ring-[0.5px] focus:border-white"
+                          className="pl-10 pr-4 bg-white/10 border border-gray-600 text-white placeholder:text-white rounded-xl focus:outline-none"
                         />
                       </div>
                     </FormControl>
@@ -161,50 +171,53 @@ export default function SignUpForm() {
                 )}
               />
 
+              {/* Password */}
               <FormField
-                name="password"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white">Password</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-3 h-5 w-5 text-cyan-400" />
-                        <Input
-                          {...field}
-                          type={showPassword ? 'text' : 'password'}
-                          placeholder="••••••••"
-                          className="pl-10 pr-10 bg-white/10 border border-white/10 text-white placeholder:text-white rounded-xl focus:ring-[0.5px] focus:border-white"
-                        />
-                        <button
-                          type="button"
-                          className="absolute right-3 top-2.5 text-cyan-400 hover:text-white transition-all duration-300"
-                          onClick={() => setShowPassword((prev) => !prev)}
-                        >
-                          {showPassword ? (
-                            <EyeOff className="w-5 h-5" />
-                          ) : (
-                            <Eye className="w-5 h-5" />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
-                    <FormMessage className="text-red-300" />
-                  </FormItem>
-                )}
-              />
+  name="password"
+  control={form.control}
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel className="text-white">Password</FormLabel>
+      <FormControl>
+        <div className="relative">
+          {/* Left-side Lock icon */}
+          <Lock className="absolute left-3 top-3 h-5 w-5 text-cyan-400" />
+          
+          {/* Final password input without eye icon */}
+          <Input
+            {...field}
+            type="password"
+            placeholder="••••••••"
+            className="pl-10 pr-4 bg-white/10 border border-gray-600 text-white placeholder:text-white/60 rounded-xl focus:outline-none"
+          />
+        </div>
+      </FormControl>
+      <FormMessage className="text-red-300" />
+    </FormItem>
+  )}
+/>
 
+
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className="group relative px-8 py-3 rounded-md bg-black text-cyan-400 font-bold tracking-widest uppercase text-sm border border-cyan-500/50 hover:border-cyan-500 transition-all duration-300 ease-in-out hover:text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:shadow-[0_0_35px_rgba(34,211,238,0.45)] active:translate-y-1 active:shadow-[0_0_15px_rgba(34,211,238,0.45)] active:scale-[0.98] w-full"
               >
                 <span className="flex items-center justify-center gap-2 relative z-10">
-                  <svg fill="currentColor" viewBox="0 0 24 24" className="w-4 h-4 transition-transform duration-300 group-hover:scale-125">
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    className="w-4 h-4 transition-transform duration-300 group-hover:scale-125"
+                  >
                     <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                   </svg>
                   {isSubmitting ? 'Please wait' : 'Sign Up'}
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 transition-all duration-300 group-hover:-rotate-45 group-hover:scale-150">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-3.5 h-3.5 transition-all duration-300 group-hover:-rotate-45 group-hover:scale-150"
+                  >
                     <path d="M12 2v20m0-20L4 12m8-10l8 10"></path>
                   </svg>
                 </span>
@@ -217,7 +230,10 @@ export default function SignUpForm() {
           <div className="text-center mt-6 animate-fade-in delay-300">
             <p className="text-sm text-gray-300">
               Already a member?{' '}
-              <Link href="/sign-in" className="text-cyan-400 hover:text-cyan-300 font-semibold">
+              <Link
+                href="/sign-in"
+                className="text-cyan-400 hover:text-cyan-300 font-semibold"
+              >
                 Sign in
               </Link>
             </p>

@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { Mail, Lock, Rocket, Gift } from "lucide-react";
 import { motion } from "framer-motion";
 import Autoplay from "embla-carousel-autoplay";
 import messages from "@/messages.json";
-import { Lock, Rocket, Gift } from "lucide-react";
 
 import {
   Card,
@@ -87,20 +86,20 @@ export default function Home() {
             className="mt-8"
           >
             <Link href="/sign-up">
-                  <button
-                  className="relative inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold text-white shadow-lg active:scale-[0.97] transition-all"
-                  style={{
-                    background: "linear-gradient(to right, #3ABEFF, #A14FFF)",
-                  }}
-                >
-                  <span className="relative z-10">Get Started</span>
-                  <span className="absolute inset-0 rounded-full bg-white/10 blur-md opacity-10 pointer-events-none" />
-                </button>
-                </Link>
+              <button
+                className="relative inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold text-white shadow-lg active:scale-[0.97] transition-all"
+                style={{
+                  background: "linear-gradient(to right, #3ABEFF, #A14FFF)",
+                }}
+              >
+                <span className="relative z-10">Get Started</span>
+                <span className="absolute inset-0 rounded-full bg-white/10 blur-md opacity-10 pointer-events-none" />
+              </button>
+            </Link>
           </motion.div>
 
           {/* Carousel */}
-          <div className="mt-12 w-full max-w-xl z-10">
+          <div className="mt-6 md:mt-12 w-full max-w-xl z-10">
             <Carousel plugins={[Autoplay({ delay: 2500 })]}>
               <CarouselContent>
                 {[...messages, ...extraMessages].map((message, index) => (
@@ -137,7 +136,7 @@ export default function Home() {
         </section>
 
         {/* Info Section */}
-        <section className="relative z-10 mt-24 max-w-5xl mx-auto px-4 text-center">
+        <section className="relative z-10 mt-12 md:mt-24 max-w-5xl mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -145,8 +144,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <h2 className="text-7xl md:text-4xl font-bold text-fuchsia-400 flex items-center justify-center gap-2 mb-3">
-              <span className="text-5xl">👤</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-fuchsia-400 flex items-center justify-center gap-2 mb-3">
+              <span className="text-2xl sm:text-3xl md:text-4xl">👤</span>
               Built For Everyone
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg text-center">
@@ -161,8 +160,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <h2 className="text-7xl md:text-4xl font-extrabold text-white flex items-center justify-center gap-3 mb-3">
-              <span className="text-5xl text-cyan-300">🌌</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white flex items-center justify-center gap-3 mb-3">
+              <span className="text-2xl sm:text-3xl md:text-4xl text-cyan-300">🌌</span>
               Real Thoughts. No Filters.
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto text-base md:text-lg text-center">
@@ -171,26 +170,22 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0">
-            {[
-              {
-                title: "No Identity Needed",
-                description: "Let your words speak for themselves. No names, no judgments.",
-                icon: <Lock className="w-8 h-8 text-purple-300" />,
-                hoverColor: "group-hover:text-purple-300"
-              },
-              {
-                title: "Lightning Fast",
-                description: "Generate a link and start connecting — instantly and securely.",
-                icon: <Rocket className="w-8 h-8 text-pink-400" />,
-                hoverColor: "group-hover:text-pink-400"
-              },
-              {
-                title: "Free Forever",
-                description: "Access all features without cost. Just focus on truth and connection.",
-                icon: <Gift className="w-8 h-8 text-emerald-300" />,
-                hoverColor: "group-hover:text-emerald-300"
-              },
-            ].map((item, i) => (
+            {[{
+              title: "No Identity Needed",
+              description: "Let your words speak for themselves. No names, no judgments.",
+              icon: <Lock className="w-8 h-8 text-purple-300" />, 
+              hoverColor: "group-hover:text-purple-300",
+            }, {
+              title: "Lightning Fast",
+              description: "Generate a link and start connecting — instantly and securely.",
+              icon: <Rocket className="w-8 h-8 text-pink-400" />, 
+              hoverColor: "group-hover:text-pink-400",
+            }, {
+              title: "Free Forever",
+              description: "Access all features without cost. Just focus on truth and connection.",
+              icon: <Gift className="w-8 h-8 text-emerald-300" />, 
+              hoverColor: "group-hover:text-emerald-300",
+            }].map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
@@ -200,9 +195,7 @@ export default function Home() {
                 className="group border border-cyan-400/30 bg-white/5 backdrop-blur-lg rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,255,0.1)] hover:shadow-[0_0_30px_rgba(0,255,255,0.2)] transition-all duration-300 text-center flex flex-col items-center"
               >
                 <div className="mb-4">{item.icon}</div>
-                <h3 className={`text-lg font-semibold mb-2 text-white transition-colors duration-300 ${item.hoverColor}`}>
-                  {item.title}
-                </h3>
+                <h3 className={`text-lg font-semibold mb-2 text-white transition-colors duration-300 ${item.hoverColor}`}>{item.title}</h3>
                 <p className="text-gray-300 text-sm">{item.description}</p>
               </motion.div>
             ))}
@@ -251,20 +244,11 @@ export default function Home() {
           </div>
         </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-20 mb-4 px-6 max-w-2xl text-center text-gray-400 text-sm italic z-10 mx-auto"
-        >
-          <p>Sometimes the quietest voices carry the deepest truths.</p>
-        </motion.div>
+        {/* Footer */}
+        <footer className="text-center p-6 bg-[#0a0a0a] text-gray-400 text-sm border-t border-white/10 mt-24">
+          © 2025 True Mystery. All rights reserved.
+        </footer>
       </main>
-
-      <footer className="text-center p-6 bg-[#0a0a0a] text-gray-400 text-sm border-t border-white/10">
-        © 2025 True Mystery. All rights reserved.
-      </footer>
     </>
   );
 }
