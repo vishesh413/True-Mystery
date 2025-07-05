@@ -30,7 +30,6 @@ function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
-    // Add margin-top to body on /dashboard to prevent overlap
     if (pathname === "/dashboard") {
       document.body.classList.add("pt-navbar");
     } else {
@@ -45,22 +44,41 @@ function Navbar() {
         bg-gradient-to-br from-black via-gray-900 to-black
         shadow-[0_0_40px_5px_rgba(0,255,255,0.15)] border-b border-cyan-400/20 backdrop-blur-xl`}
     >
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center h-full">
+      <div className="container mx-auto relative flex flex-nowrap justify-between items-center h-full gap-4">
+        {/* Left - Logo */}
         <Link
           href="/"
           className="text-2xl md:text-3xl font-black tracking-tight flex items-center gap-3
             bg-gradient-to-r from-cyan-300 via-blue-500 to-purple-500 bg-clip-text text-transparent
-            hover:brightness-125 transition duration-300"
+            hover:brightness-125 transition duration-300 whitespace-nowrap"
         >
           <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 animate-pulse drop-shadow-md" />
-          Mystery Message
+          Mystery Threads
         </Link>
 
-        {session ? (
-          <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 mt-2 md:mt-0">
-            <span className="text-sm md:text-base text-cyan-300 font-medium">
+        {/* Center - Welcome Message */}
+        {session && (
+          <div
+            className="
+              absolute 
+              left-1/2 
+              top-[2.2rem] md:top-1/2 
+              transform 
+              -translate-x-1/2 
+              md:-translate-y-1/2
+              text-center
+              hidden md:block
+            "
+          >
+            <span className="text-sm md:text-base text-cyan-300 font-medium whitespace-nowrap">
               Welcome, {user?.username || user?.email}
             </span>
+          </div>
+        )}
+
+        {/* Right - Auth Button */}
+        {session ? (
+          <div className="flex items-center gap-4 whitespace-nowrap">
             <button
               onClick={() => signOut()}
               className="text-base md:text-lg font-bold py-2 px-6
@@ -71,10 +89,12 @@ function Navbar() {
             </button>
           </div>
         ) : (
-          <Link href="/sign-in">
-            <h1 className="text-base md:text-lg font-bold py-2 px-6
-              bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white
-              rounded-lg hover:scale-105 active:scale-95 transition duration-200">
+          <Link href="/sign-in" className="whitespace-nowrap">
+            <h1
+              className="text-base md:text-lg font-bold py-2 px-6
+                bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white
+                rounded-lg hover:scale-105 active:scale-95 transition duration-200"
+            >
               <Cover>Login</Cover>
             </h1>
           </Link>

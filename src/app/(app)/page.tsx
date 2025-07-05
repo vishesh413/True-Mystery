@@ -76,7 +76,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-4 text-lg text-gray-300 max-w-xl"
           >
-            True Mystery - Where your identity remains a secret.
+            Mystery Threads - Where your identity remains a secret.
           </motion.p>
 
           <motion.div
@@ -85,17 +85,26 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="mt-8"
           >
-            <Link href="/sign-up">
+
+          <Link href="/sign-up">
+            <div
+              className="inline-block rounded-full p-[2px] bg-gradient-to-r from-cyan-300 via-sky-400 to-fuchsia-500 
+                        hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] transition-all duration-300"
+            >
               <button
-                className="relative inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold text-white shadow-lg active:scale-[0.97] transition-all"
-                style={{
-                  background: "linear-gradient(to right, #3ABEFF, #A14FFF)",
-                }}
+                className="relative inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold text-white 
+                          bg-black w-full h-full shadow-[0_0_20px_rgba(0,0,0,0.6)]"
               >
-                <span className="relative z-10">Get Started</span>
-                <span className="absolute inset-0 rounded-full bg-white/10 blur-md opacity-10 pointer-events-none" />
+                <span className="relative z-10 tracking-wide">Get Started</span>
               </button>
-            </Link>
+            </div>
+          </Link>
+
+
+
+
+
+
           </motion.div>
 
           {/* Carousel */}
@@ -242,7 +251,7 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="text-center p-6 bg-[#0a0a0a] text-gray-400 text-sm border-t border-white/10 mt-24">
-          © 2025 True Mystery. All rights reserved.
+          © 2025 Mystery Threads. All rights reserved.
         </footer>
       </main>
     </>

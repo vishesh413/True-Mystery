@@ -30,7 +30,6 @@ const initialSuggestions = [
   "What would you say if no one knew it was you?",
   "A compliment you never gave, but still remember.",
   "Describe a moment you wish you could relive.",
-
 ];
 
 export default function SendMessage() {
@@ -100,7 +99,7 @@ export default function SendMessage() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="w-full max-w-3xl bg-black/70 backdrop-blur-2xl rounded-3xl border border-cyan-500/40 p-8 shadow-[0_0_40px_#14b8a680] z-10"
+        className="w-full max-w-3xl bg-[#090e1a] bg-opacity-90 rounded-2xl border border-cyan-500 shadow-lg p-8 sm:p-10 z-10"
       >
         <motion.h1
           initial={{ opacity: 0, scale: 0.9 }}

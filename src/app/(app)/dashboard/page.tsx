@@ -6,18 +6,15 @@ import axios, { AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { motion } from 'framer-motion';
+import { Loader2, RefreshCcw } from 'lucide-react';
 
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
-import { Loader2, RefreshCcw } from 'lucide-react';
-
 import { acceptMessageSchema } from '@/schemas/acceptMessageSchema';
 import { ApiResponse } from '@/types/ApiResponse';
 import { Message } from '@/model/User';
 import { User } from 'next-auth';
 import MessageCard from '@/components/MessageCard';
-
 import { StarsBackground } from '@/components/ui/stars-background';
 import { ShootingStars } from '@/components/ui/shooting-stars';
 
@@ -104,105 +101,100 @@ export default function Dashboard() {
   const profileUrl = `${baseUrl}/u/${username}`;
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col items-center py-12 px-6 bg-black text-white pt-20">
+    <div className="relative min-h-screen flex flex-col items-center py-12 px-4 bg-black text-white pt-20">
       <StarsBackground />
       <ShootingStars />
 
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative z-10 w-full max-w-5xl bg-black bg-opacity-70 rounded-2xl border border-cyan-500 shadow-[0_0_25px_3px_rgba(6,182,212,0.5)] p-10 backdrop-blur-md"
-      >
-        <h1 className="text-4xl font-bold mb-12 font-serif drop-shadow-md select-none">
-          📋 User Dashboard
+      <div className="relative z-10 w-full max-w-6xl bg-[#090e1a] bg-opacity-90 rounded-2xl border border-cyan-500 shadow-lg p-8 sm:p-10">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-10 flex items-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
+          🧬 Mystery Dashboard
         </h1>
 
-        <div className="flex flex-col md:flex-row gap-4 mb-8 items-center">
-          <input
-            type="text"
-            value={profileUrl}
-            disabled
-            className="flex-grow rounded-lg border border-gray-600 bg-gray-900 text-white px-5 py-3 focus:ring-2 focus:ring-cyan-400 transition"
-          />
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(profileUrl);
-              toast.success('Link copied to clipboard');
-            }}
-            className="group relative px-6 py-3 rounded-md bg-black text-cyan-400 font-bold uppercase text-xs border border-cyan-500/50 hover:border-cyan-500 transition-all duration-300 ease-in-out hover:text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:shadow-[0_0_35px_rgba(34,211,238,0.45)] active:translate-y-1 active:shadow-[0_0_15px_rgba(34,211,238,0.45)] active:scale-[0.98]"
-          >
-            Copy link
-          </button>
+        {/* Profile Link Section */}
+        <div className="mb-6 w-full">
+          <label className="text-sm font-semibold mb-2 block text-cyan-300 flex items-center gap-2">
+            🔗 Your Profile Link
+          </label>
+
+          <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+            <input
+              value={profileUrl}
+              readOnly
+              className="flex-1 rounded-md bg-slate-800 border border-slate-600 px-4 py-2 text-sm text-white"
+            />
+            <div className="w-full sm:w-auto flex justify-center sm:block">
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(profileUrl);
+                  toast.success('Link copied!');
+                }}
+                className="group relative w-full sm:w-auto px-5 py-2 rounded-md bg-black text-cyan-400 font-semibold text-sm border border-cyan-500/50 hover:border-cyan-500 transition-all duration-300 hover:text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:shadow-[0_0_35px_rgba(34,211,238,0.45)] active:translate-y-1 active:scale-[0.98]"
+              >
+                <span className="relative z-10">Copy</span>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="flex flex-col items-start gap-4 mb-10 px-6 py-5 rounded-xl border border-white/10 transition-all duration-300">
+        {/* Accept Messages + Refresh */}
+        <div className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-4 py-5 border border-white/10 rounded-lg">
           <div className="flex items-center gap-3">
-            <Switch
-              {...register('acceptMessages')}
-              checked={acceptMessages}
-              onCheckedChange={handleSwitchChange}
-              disabled={isSwitchLoading}
-              className="w-[44px] h-[24px] bg-gray-900 border border-cyan-500 data-[state=checked]:bg-cyan-600 focus-visible:ring-0 focus-visible:ring-offset-0 transition"
-            />
-            <span className="text-lg font-medium text-white tracking-wide">
-              Accept Messages:{' '}
+            <span className="text-base font-medium">
+              💬 Accept Messages:{' '}
               <span
-                className={`font-semibold transition-colors duration-300 ${
-                  acceptMessages
-                    ? 'text-cyan-400 drop-shadow-[0_0_4px_rgba(34,211,238,0.6)]'
-                    : 'text-orange-400 drop-shadow-[0_0_2px_rgba(251,146,60,0.5)]'
+                className={`font-semibold ${
+                  acceptMessages ? 'text-green-400' : 'text-red-400'
                 }`}
               >
                 {acceptMessages ? 'On' : 'Off'}
               </span>
             </span>
+            <Switch
+              {...register('acceptMessages')}
+              checked={acceptMessages}
+              onCheckedChange={handleSwitchChange}
+              disabled={isSwitchLoading}
+              className="border border-cyan-400 bg-transparent data-[state=checked]:bg-transparent shadow-cyan-500/30 shadow-sm scale-95 transition-colors"
+            />
           </div>
 
           <button
             onClick={() => fetchMessages(true)}
             disabled={isLoading}
-            className="group relative px-6 py-3 rounded-md bg-black text-cyan-400 font-bold uppercase text-xs border border-cyan-500/50 hover:border-cyan-500 transition-all duration-300 ease-in-out hover:text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:shadow-[0_0_35px_rgba(34,211,238,0.45)] active:translate-y-1 active:shadow-[0_0_15px_rgba(34,211,238,0.45)] active:scale-[0.98] flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="group relative px-5 py-2 rounded-md bg-black text-cyan-400 font-semibold text-sm border border-cyan-500/50 hover:border-cyan-500 transition-all duration-300 hover:text-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.25)] hover:shadow-[0_0_35px_rgba(34,211,238,0.45)] active:translate-y-1 active:scale-[0.98] flex items-center gap-2"
           >
             {isLoading ? (
-              <Loader2 className="h-5 w-5 animate-spin" />
+              <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
-              <RefreshCcw className="h-5 w-5" />
+              <RefreshCcw className="h-4 w-4" />
             )}
-            <span>Refresh</span>
+            <span className="relative z-10">Refresh</span>
           </button>
         </div>
 
-        <Separator className="mb-8 border-gray-700" />
+        <Separator className="mb-6 border-gray-700" />
+
+        <h2 className="text-xl font-bold text-cyan-300 mb-4 flex items-center gap-2">
+          📨 Your Messages
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {messages.length > 0 ? (
-            messages.map((m, i) => (
-              <motion.div
+            messages.map((m) => (
+              <MessageCard
                 key={m._id.toString()}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-              >
-                <MessageCard
-                  message={m}
-                  onMessageDelete={handleDeleteMessage}
-                />
-              </motion.div>
+                message={m}
+                onMessageDelete={handleDeleteMessage}
+              />
             ))
           ) : (
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.3, ease: 'easeOut' }}
-              className="relative text-center text-lg font-serif text-transparent bg-gradient-to-r from-cyan-400 via-white to-cyan-300 bg-clip-text 
-              animate-text-shimmer drop-shadow-[0_0_15px_rgba(34,211,238,0.9)]"
-            >
-              <span className="animate-float">No messages to display.</span>
-            </motion.p>
+            <p className="col-span-full text-center text-slate-300">
+              No messages yet. Share your cosmic link and let the mysteries
+              begin!
+            </p>
           )}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

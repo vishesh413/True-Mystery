@@ -74,7 +74,7 @@ export default function SignUpForm() {
         description: response.data.message,
       });
 
-      router.replace(`/verify/${data.username}`);
+      router.replace(`/sign-in`);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       const errorMessage =
@@ -90,18 +90,17 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden px-4 sm:px-6 py-10 sm:py-14">
       <StarsBackground />
       <ShootingStars />
 
-      <div className="relative w-full max-w-md z-10 group">
-        {/* Removed glow blur hover div */}
-        <div className="relative px-8 py-10 bg-black/60 backdrop-blur-xl rounded-2xl border border-cyan-400 transition duration-300">
-          <div className="text-center mb-6">
-            <h1 className="text-4xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-purple-400 mb-2 animate-fade-in">
+      <div className="relative w-full max-w-sm sm:max-w-md z-10 group">
+        <div className="relative px-6 sm:px-8 py-10 sm:py-12 bg-black/60 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-cyan-400 transition duration-300">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-purple-400 mb-3 animate-fade-in">
               Join MysteryVerse
             </h1>
-            <p className="text-gray-300 animate-fade-in delay-100">
+            <p className="text-gray-300 text-sm sm:text-base animate-fade-in delay-100">
               Sign up to start your anonymous adventure
             </p>
           </div>
@@ -109,7 +108,7 @@ export default function SignUpForm() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-6 animate-fade-in delay-200"
+              className="flex flex-col gap-y-5 animate-fade-in delay-200"
             >
               {/* Username */}
               <FormField

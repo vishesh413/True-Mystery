@@ -63,18 +63,18 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-black text-white px-6 py-12 overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center bg-black text-white px-4 py-10 sm:py-14 overflow-hidden">
       <StarsBackground />
       <ShootingStars />
 
-      <div className="relative w-full max-w-md z-10 group">
-        {/* Removed hover glow blur */}
-        <div className="relative px-8 py-10 bg-black/60 backdrop-blur-xl rounded-2xl border border-cyan-400 transition duration-300">
-          <div className="text-center mb-6">
-            <h1 className="text-4xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-purple-400 mb-2 animate-fade-in">
+      {/* ✅ EXACT width like SignUp: max-w-sm / sm:max-w-md */}
+      <div className="relative w-full max-w-sm sm:max-w-md z-10 group">
+        <div className="relative px-6 sm:px-8 py-10 sm:py-12 bg-black/60 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-cyan-400 transition duration-300">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-purple-400 mb-3 animate-fade-in">
               Sign In to MysteryVerse
             </h1>
-            <p className="text-gray-300 animate-fade-in delay-100">
+            <p className="text-gray-300 text-sm sm:text-base animate-fade-in delay-100">
               Welcome back to the anonymous world
             </p>
           </div>
@@ -82,8 +82,9 @@ export default function SignInPage() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-6 animate-fade-in delay-200"
+              className="flex flex-col gap-y-5 animate-fade-in delay-200"
             >
+              {/* Username or Email */}
               <FormField
                 name="identifier"
                 control={form.control}
@@ -105,6 +106,7 @@ export default function SignInPage() {
                 )}
               />
 
+              {/* Password */}
               <FormField
                 name="password"
                 control={form.control}
@@ -127,6 +129,7 @@ export default function SignInPage() {
                 )}
               />
 
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -161,7 +164,7 @@ export default function SignInPage() {
             </form>
           </Form>
 
-          <p className="text-center text-sm text-gray-300 mt-6">
+          <p className="text-center text-sm text-gray-300 mt-6 animate-fade-in delay-300">
             Not a member?{" "}
             <Link href="/sign-up" className="text-cyan-400 hover:text-cyan-300 font-semibold">
               Join Now

@@ -35,7 +35,7 @@ export const Cover = ({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       ref={ref}
-      className="relative group/cover inline-block px-3 py-2 transition duration-200 rounded-2xl border border-white/10 hover:border-cyan-300 shadow-[0_0_20px_1px_rgba(0,255,255,0.15)] hover:shadow-[0_0_30px_3px_rgba(0,255,255,0.3)] bg-neutral-900"
+      className="relative group/cover inline-block px-6 py-2 transition duration-200 border border-white/10 hover:border-cyan-300 shadow-[0_0_20px_1px_rgba(0,255,255,0.15)] hover:shadow-[0_0_30px_3px_rgba(0,255,255,0.3)] bg-neutral-900 rounded-md"
     >
       {/* Sparkle background on hover */}
       <AnimatePresence>
@@ -91,33 +91,18 @@ export const Cover = ({
         />
       ))}
 
-      {/* Text (fixed visibility) */}
+      {/* Button Text */}
       <motion.span
         key={String(hovered)}
         animate={{
-          scale: hovered ? 0.8 : 1,
-          x: hovered ? [0, -30, 30, -30, 30, 0] : 0,
-          y: hovered ? [0, 30, -30, 30, -30, 0] : 0,
+          scale: hovered ? 0.95 : 1,
         }}
         exit={{
-          filter: "none",
           scale: 1,
-          x: 0,
-          y: 0,
         }}
         transition={{
-          duration: 0.2,
-          x: {
-            duration: 0.2,
-            repeat: Infinity,
-            repeatType: "loop",
-          },
-          y: {
-            duration: 0.2,
-            repeat: Infinity,
-            repeatType: "loop",
-          },
-          scale: { duration: 0.2 },
+          duration: 0.3,
+          scale: { duration: 0.3 },
         }}
         className={cn(
           "text-white font-semibold inline-block relative z-20 transition duration-200",
