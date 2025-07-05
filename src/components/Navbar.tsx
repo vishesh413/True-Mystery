@@ -44,11 +44,11 @@ function Navbar() {
         bg-gradient-to-br from-black via-gray-900 to-black
         shadow-[0_0_40px_5px_rgba(0,255,255,0.15)] border-b border-cyan-400/20 backdrop-blur-xl`}
     >
-      <div className="container mx-auto relative flex flex-nowrap justify-between items-center h-full gap-4">
+      <div className="container mx-auto relative flex items-center justify-between h-full gap-4 px-2 md:px-4">
         {/* Left - Logo */}
         <Link
           href="/"
-          className="text-2xl md:text-3xl font-black tracking-tight flex items-center gap-3
+          className="text-xl md:text-3xl font-black tracking-tight flex items-center gap-3
             bg-gradient-to-r from-cyan-300 via-blue-500 to-purple-500 bg-clip-text text-transparent
             hover:brightness-125 transition duration-300 whitespace-nowrap"
         >
@@ -77,28 +77,28 @@ function Navbar() {
         )}
 
         {/* Right - Auth Button */}
-        {session ? (
-          <div className="flex items-center gap-4 whitespace-nowrap">
+        <div className="flex items-center gap-2 whitespace-nowrap flex-shrink-0">
+          {session ? (
             <button
               onClick={() => signOut()}
-              className="text-base md:text-lg font-bold py-2 px-6
+              className="text-sm md:text-lg font-bold py-2 px-4 md:px-6
                 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white
                 rounded-lg hover:scale-105 active:scale-95 transition duration-200"
             >
               <Cover>Logout</Cover>
             </button>
-          </div>
-        ) : (
-          <Link href="/sign-in" className="whitespace-nowrap">
-            <h1
-              className="text-base md:text-lg font-bold py-2 px-6
-                bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white
-                rounded-lg hover:scale-105 active:scale-95 transition duration-200"
-            >
-              <Cover>Login</Cover>
-            </h1>
-          </Link>
-        )}
+          ) : (
+            <Link href="/sign-in" className="whitespace-nowrap">
+              <h1
+                className="text-sm md:text-lg font-bold py-2 px-4 md:px-6
+                  bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white
+                  rounded-lg hover:scale-105 active:scale-95 transition duration-200"
+              >
+                <Cover>Login</Cover>
+              </h1>
+            </Link>
+          )}
+        </div>
       </div>
     </nav>
   );

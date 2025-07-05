@@ -76,7 +76,7 @@ export const FlipWords = ({
                   delay: wordIndex * 0.3 + letterIndex * 0.05,
                   duration: 0.2,
                 }}
-                className={cn("inline-block", className)} // Apply color/gradient here too
+                className={cn("inline-block text-cyan-400")}
               >
                 {letter}
               </motion.span>

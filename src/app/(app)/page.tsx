@@ -92,19 +92,19 @@ export default function Home() {
                         hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] transition-all duration-300"
             >
               <button
-                className="relative inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-semibold text-white 
-                          bg-black w-full h-full shadow-[0_0_20px_rgba(0,0,0,0.6)]"
-              >
-                <span className="relative z-10 tracking-wide">Get Started</span>
-              </button>
+  className="relative inline-flex items-center justify-center px-8 py-3 rounded-full text-sm font-extrabold 
+             bg-black border border-cyan-400/30 
+             hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] transition-all duration-300"
+>
+  <span className="text-white tracking-wide">
+    Get Started
+  </span>
+</button>
+
+
+
             </div>
           </Link>
-
-
-
-
-
-
           </motion.div>
 
           {/* Carousel */}
@@ -119,7 +119,14 @@ export default function Home() {
                       transition={{ duration: 0.5, ease: "easeInOut" }}
                       viewport={{ once: true }}
                     >
-                      <Card className="bg-white/5 border border-white/5 backdrop-blur-lg rounded-2xl shadow-[0_0_20px_rgba(0,255,255,0.05)] hover:shadow-[0_0_30px_rgba(0,255,255,0.15)] transition duration-300">
+                      <Card
+                          className="rounded-2xl border border-cyan-400/20 
+                                    bg-gradient-to-br from-black via-[#0b0b0b] to-[#1a1a1a] 
+                                    backdrop-blur-md 
+                                    shadow-[0_0_40px_rgba(0,255,255,0.05)] 
+                                    transition-all duration-500"
+                        >
+
                         <CardHeader className="text-left">
                           <CardTitle className="text-lg font-semibold text-white">
                             {message.title}
